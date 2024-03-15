@@ -14,7 +14,7 @@ Entity::Entity(string n, int h, int m, int atk, int def, int magAtk, int magDef,
     this->magicDefense = magDef;
     this->agility = agl;
     this->speed = spd;
-    timer = 0;
+
 }
 
 Entity::~Entity() {

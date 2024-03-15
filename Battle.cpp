@@ -29,13 +29,16 @@ void Battle::Initialize() {
 void Battle::SetupBattle() {
 
     cout<<"Setting up battle"<<endl;
-    
+
+    //setup entities
     for(auto p : *m_party) {
-        p->resetTimer();
+        p->ready = false;
+        p->batleTime = p->speed;
         m_allPlayerAndEnemyEntities->push_back(p);
     }
     for(auto e : *m_enemies) {
-        e->resetTimer();
+        e->ready = false;
+        e->batleTime = e->speed;
         m_allPlayerAndEnemyEntities->push_back(e);
     }
     m_state = BATTLE_STATE_WAITING_FOR_TURN;
@@ -53,14 +56,17 @@ void Battle::BattleStart() {
             case BATTLE_STATE_WAITING_FOR_TURN:
             {
                 //cout<<"BATTLE_STATE_WAITING_FOR_TURN\n";
+
+                //getting a buggy interaction when all Entities have the same speed -- only 2 make it in
+                //but only at the start
                 for(auto e : *m_allPlayerAndEnemyEntities) {
-                    //since we're looping over all the entities, multiples can have timer 0.
-                    //We want the speed stat to determine priority in the priority_queue
-                    if(e->timer <= 0) {
+                    if(!e->ready && clock()/CLOCKS_PER_SEC > 0 && clock()/CLOCKS_PER_SEC % e->batleTime == 0) {
+                        e->ready = true;
+                        cout << e->name << " has a battle timer of: " << e->batleTime << " and is going into queue at: " << clock() / CLOCKS_PER_SEC << endl;
+                        //turnQueue is a priority_queue -- so "ties" of battleTime are deteremined by the AGI stat
                         turnQueue->push(e);
                     }
-                    //decrement the timer
-                    e->timer -= 1;
+
                 }
                 if(!turnQueue->empty()) {
                     m_state = BATTLE_STATE_TURN_AVAILABLE;
@@ -73,11 +79,21 @@ void Battle::BattleStart() {
                 while(!turnQueue->empty()) {
                     Entity* currentEntity = turnQueue->top();
                     turnQueue->pop();
-                    cout<<"It's "<<currentEntity->name <<"'s turn."<< endl;
-                    //here to simulate a turn
-                    this_thread::sleep_for(milliseconds(500));
-                    currentEntity->resetTimer();
+                    cout<<"It's "<<currentEntity->name <<"'s turn at second: "<<clock()/CLOCKS_PER_SEC<<endl;
 
+                    //simulate a turn
+                    cout<<"simulating a turn that takes 2 seconds"<<endl;
+                    this_thread::sleep_for(milliseconds(2000));
+
+                    //set the battle timer to be current clock in seconds plus the entities speed. Essentially, we're making the battleTime
+                    //a point in time at which they will be considered for a turn.
+                    currentEntity->batleTime = currentEntity->speed + clock() / CLOCKS_PER_SEC;
+                    cout<<"Clock: "<<clock()/CLOCKS_PER_SEC<<endl;
+                    cout<<"Speed: "<<currentEntity->speed<<endl;
+                    cout << "BattleTimer: " << currentEntity->batleTime << endl;
+
+                    //go back to being not ready
+                    currentEntity->ready = false;
                 }
                 //change state back to waiting for turns once the turn queue is empty
                 m_state = BATTLE_STATE_WAITING_FOR_TURN;

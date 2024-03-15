@@ -7,4 +7,5 @@ add_executable(battle main.cpp
         Entity.cpp
         Entity.h
         Battle.cpp
-        Battle.h)
+        Battle.h
+)

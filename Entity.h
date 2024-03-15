@@ -22,15 +22,14 @@ public:
     int magicDefense;
     int agility;
     int speed;
-    int timer;
+    int batleTime;
+    bool ready;
 
     bool isAlive() const {
         return this->hp > 0;
     }
 
-    void resetTimer() {
-        this->timer = 1000 / speed;
-    }
+
 };
 
 

@@ -51,7 +51,6 @@ private:
     vector<Entity*>* m_allPlayerAndEnemyEntities;
     int m_result;
     int m_state;
-    chrono::duration<int> m_diffTime;
 
     priority_queue<Entity*, vector<Entity*>, CompareSpeedStat>* turnQueue;
 };

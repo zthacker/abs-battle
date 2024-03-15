@@ -8,10 +8,10 @@ using namespace std;
 
 int main() {
 
-    Entity* character1 = new Entity("Character1", 300, 50, 60, 40, 20, 30, 50, 10);
-    Entity* character2 = new Entity("Character2", 200, 50, 60, 40, 20, 30, 50, 15);
-    Entity* mob1 = new Entity("Mob1", 100, 50, 60, 40, 20, 30, 50, 5);
-    Entity* mob2 = new Entity("Mob2", 100, 50, 60, 40, 20, 30, 50, 1);
+    Entity* character1 = new Entity("Character1", 300, 50, 60, 40, 20, 30, 100, 4);
+    Entity* character2 = new Entity("Character2", 200, 50, 60, 40, 20, 30, 80, 4);
+    Entity* mob1 = new Entity("Mob1", 100, 50, 60, 40, 20, 30, 30, 4);
+    Entity* mob2 = new Entity("Mob2", 100, 50, 60, 40, 20, 30, 90, 4);
 
     vector<Entity*>* party = new vector<Entity*>;
     vector<Entity*>* enemies = new vector<Entity*>;
