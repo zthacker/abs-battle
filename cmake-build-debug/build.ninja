@@ -67,6 +67,18 @@ build CMakeFiles/battle.dir/Battle.cpp.obj: CXX_COMPILER__battle_unscanned_Debug
   OBJECT_DIR = CMakeFiles\battle.dir
   OBJECT_FILE_DIR = CMakeFiles\battle.dir
 
+build CMakeFiles/battle.dir/Timer.cpp.obj: CXX_COMPILER__battle_unscanned_Debug C$:/Users/zthacker/abs/battle/Timer.cpp || cmake_object_order_depends_target_battle
+  DEP_FILE = CMakeFiles\battle.dir\Timer.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\battle.dir
+  OBJECT_FILE_DIR = CMakeFiles\battle.dir
+
+build CMakeFiles/battle.dir/BattleTimerManager.cpp.obj: CXX_COMPILER__battle_unscanned_Debug C$:/Users/zthacker/abs/battle/BattleTimerManager.cpp || cmake_object_order_depends_target_battle
+  DEP_FILE = CMakeFiles\battle.dir\BattleTimerManager.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\battle.dir
+  OBJECT_FILE_DIR = CMakeFiles\battle.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target battle
@@ -75,7 +87,7 @@ build CMakeFiles/battle.dir/Battle.cpp.obj: CXX_COMPILER__battle_unscanned_Debug
 #############################################
 # Link the executable battle.exe
 
-build battle.exe: CXX_EXECUTABLE_LINKER__battle_Debug CMakeFiles/battle.dir/main.cpp.obj CMakeFiles/battle.dir/Entity.cpp.obj CMakeFiles/battle.dir/Battle.cpp.obj
+build battle.exe: CXX_EXECUTABLE_LINKER__battle_Debug CMakeFiles/battle.dir/main.cpp.obj CMakeFiles/battle.dir/Entity.cpp.obj CMakeFiles/battle.dir/Battle.cpp.obj CMakeFiles/battle.dir/Timer.cpp.obj CMakeFiles/battle.dir/BattleTimerManager.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\battle.dir

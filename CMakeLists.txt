@@ -8,4 +8,8 @@ add_executable(battle main.cpp
         Entity.h
         Battle.cpp
         Battle.h
+        Timer.h
+        Timer.cpp
+        BattleTimerManager.h
+        BattleTimerManager.cpp
 )

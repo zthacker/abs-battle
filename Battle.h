@@ -6,6 +6,7 @@
 #define BATTLE_BATTLE_H
 
 #include "Entity.h"
+#include "BattleTimerManager.h"
 #include <vector>
 #include <queue>
 #include <chrono>
@@ -19,7 +20,7 @@ enum
     BATTLE_STATE_ENEMY_TURN,
     BATTLE_STATE_PLAYER_TURN,
     BATTLE_STATE_WAITING_FOR_TURN,
-    BATTLE_STATE_TURN_AVAILABLE,
+    BATTLE_STATE_PERFORMING_ACTION,
     BATTLE_STATE_BATTLE_OVER
 
 } BATTLE_STATE;
@@ -31,28 +32,32 @@ enum
     BATTLE_RESULT_STREAM_CLOSED
 }BATTLE_RESULT;
 
-struct CompareSpeedStat {
-    bool operator()(const Entity* e1, const Entity* e2) const {
-        return e1->speed > e2->speed;
+struct CompareStat {
+    bool operator()(const Entity e1, const Entity e2) const {
+        return e1.agility > e2.agility;
     }
 };
 
 class Battle {
 public:
-    Battle(vector<Entity*>* party, vector<Entity*>* enemies);
+    Battle(vector<Entity*>* party, vector<Entity> enemies);
     ~Battle();
     void BattleStart();
     void Initialize();
 
 private:
     void SetupBattle();
-    vector<Entity*>* m_enemies;
+    void cb_EntityReady(Entity entity);
+    vector<Entity> m_enemies;
     vector<Entity*>* m_party;
-    vector<Entity*>* m_allPlayerAndEnemyEntities;
+    vector<Entity> m_allPlayerAndEnemyEntities;
     int m_result;
     int m_state;
 
-    priority_queue<Entity*, vector<Entity*>, CompareSpeedStat>* turnQueue;
+    priority_queue<Entity, vector<Entity>, CompareStat> actionQueue;
+    queue<Entity> readyQueue;
+    BattleTimerManager m_battleTimerManager;
+
 };
 
 
